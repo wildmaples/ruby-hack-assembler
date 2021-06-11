@@ -28,4 +28,12 @@ class Parser
       @command[1..-2]
     end
   end
+
+  def dest
+    if @command.include?("=")
+      @command.split("=").first
+    else
+      "null"
+    end
+  end
 end

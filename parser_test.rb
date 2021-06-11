@@ -57,4 +57,18 @@ class ParserTest < Minitest::Test
     parser.advance
     assert_equal("LOOP", parser.symbol)
   end
+
+  def test_dest_for_C_COMMAND
+    input_file = StringIO.new("D=A")
+    parser = Parser.new(input_file)
+    parser.advance
+    assert_equal("D", parser.dest)
+  end
+
+  def test_dest_null
+    input_file = StringIO.new("0;JMP")
+    parser = Parser.new(input_file)
+    parser.advance
+    assert_equal("null", parser.dest)
+  end
 end
