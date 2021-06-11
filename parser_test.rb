@@ -34,4 +34,13 @@ class ParserTest < Minitest::Test
     parser.advance
     assert_equal(parser.command_type, :L_COMMAND)
   end
+
+  def test_advance_lines_twice
+    input_file = StringIO.new("@2\nD=A")
+    parser = Parser.new(input_file)
+    assert(parser.has_more_commands?)
+    parser.advance
+    parser.advance
+    refute(parser.has_more_commands?)
+  end
 end
