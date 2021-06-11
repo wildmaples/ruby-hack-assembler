@@ -20,4 +20,12 @@ class Parser
       :C_COMMAND
     end
   end
+
+  def symbol
+    if command_type == :A_COMMAND
+      @command[1..-1]
+    elsif command_type == :L_COMMAND
+      @command[1..-2]
+    end
+  end
 end

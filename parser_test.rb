@@ -43,4 +43,18 @@ class ParserTest < Minitest::Test
     parser.advance
     refute(parser.has_more_commands?)
   end
+
+  def test_symbol_for_A_COMMAND
+    input_file = StringIO.new("@25")
+    parser = Parser.new(input_file)
+    parser.advance
+    assert_equal("25", parser.symbol)
+  end
+
+  def test_symbol_for_L_COMMAND
+    input_file = StringIO.new("(LOOP)")
+    parser = Parser.new(input_file)
+    parser.advance
+    assert_equal("LOOP", parser.symbol)
+  end
 end
