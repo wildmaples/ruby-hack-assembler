@@ -42,4 +42,12 @@ class Parser
       .split("=").last
       .split(";").first
   end
+
+  def jump
+    if @command.include?(";")
+      @command.split(";").last
+    else
+      "null"
+    end
+  end
 end

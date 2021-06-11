@@ -92,4 +92,18 @@ class ParserTest < Minitest::Test
     parser.advance
     assert_equal("D-M", parser.comp)
   end
+
+  def test_jump_with_jump
+    input_file = StringIO.new("D&M;JLE")
+    parser = Parser.new(input_file)
+    parser.advance
+    assert_equal("JLE", parser.jump)
+  end
+
+  def test_jump_no_jump
+    input_file = StringIO.new("D&M")
+    parser = Parser.new(input_file)
+    parser.advance
+    assert_equal("null", parser.jump)
+  end
 end
