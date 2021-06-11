@@ -36,4 +36,10 @@ class Parser
       "null"
     end
   end
+
+  def comp
+    @command
+      .split("=").last
+      .split(";").first
+  end
 end

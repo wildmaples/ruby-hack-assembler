@@ -71,4 +71,25 @@ class ParserTest < Minitest::Test
     parser.advance
     assert_equal("null", parser.dest)
   end
+
+  def test_comp_with_equal_sign
+    input_file = StringIO.new("D=D-M")
+    parser = Parser.new(input_file)
+    parser.advance
+    assert_equal("D-M", parser.comp)
+  end
+
+  def test_comp_with_semi_colon
+    input_file = StringIO.new("D&M;JMP")
+    parser = Parser.new(input_file)
+    parser.advance
+    assert_equal("D&M", parser.comp)
+  end
+
+  def test_comp_with_equal_sign_and_semi_colon
+    input_file = StringIO.new("D=D-M;JMP")
+    parser = Parser.new(input_file)
+    parser.advance
+    assert_equal("D-M", parser.comp)
+  end
 end
