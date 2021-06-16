@@ -10,7 +10,22 @@ class Code
     "AMD" => "111",
   }
 
+  JUMP_CODE = {
+    "null" => "000",
+    "JGT" => "001",
+    "JEQ" => "010",
+    "JGE" => "011",
+    "JLT" => "100",
+    "JNE" => "101",
+    "JLE" => "110",
+    "JMP" => "111",
+  }
+
   def dest(mnemonic)
     DEST_CODE[mnemonic]
+  end
+
+  def jump(mnemonic)
+    JUMP_CODE[mnemonic]
   end
 end
