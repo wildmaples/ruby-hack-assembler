@@ -106,4 +106,40 @@ class ParserTest < Minitest::Test
     parser.advance
     assert_equal("null", parser.jump)
   end
+
+  def test_comments_in_input_file
+    input_file = StringIO.new("// comment\nD&M")
+    parser = Parser.new(input_file)
+
+    assert(parser.has_more_commands?)
+    parser.advance
+
+    assert_equal("D&M", parser.comp)
+    assert_equal(:C_COMMAND, parser.command_type)
+    refute(parser.has_more_commands?)
+  end
+
+  def test_inline_comments_in_input_file
+    input_file = StringIO.new("@1234 // in-line comment")
+    parser = Parser.new(input_file)
+
+    assert(parser.has_more_commands?)
+    parser.advance
+
+    assert_equal("1234", parser.symbol)
+    assert_equal(:A_COMMAND, parser.command_type)
+    refute(parser.has_more_commands?)
+  end
+
+  def test_blank_lines_in_input_file
+    input_file = StringIO.new("\n\nD&M\n\n")
+    parser = Parser.new(input_file)
+
+    assert(parser.has_more_commands?)
+    parser.advance
+
+    assert_equal("D&M", parser.comp)
+    assert_equal(:C_COMMAND, parser.command_type)
+    refute(parser.has_more_commands?)
+  end
 end

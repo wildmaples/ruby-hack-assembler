@@ -1,6 +1,13 @@
 class Parser
   def initialize(input_file)
-    @lines = input_file.readlines
+    @lines = remove_non_commands(input_file.readlines)
+  end
+
+  def remove_non_commands(lines)
+    lines
+      .map { |line| line[0...line.index("//")] }
+      .map(&:strip)
+      .reject(&:empty?)
   end
 
   def has_more_commands?
