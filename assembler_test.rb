@@ -13,4 +13,10 @@ class AssemblerTest < Minitest::Test
     assembler = Assembler.new(input_file)
     assert_equal("0000000000000011", assembler.assemble)
   end
+
+  def test_assemble_multiple_A_commands
+    input_file = StringIO.new("@2\n@3")
+    assembler = Assembler.new(input_file)
+    assert_equal("0000000000000010\n0000000000000011", assembler.assemble)
+  end
 end

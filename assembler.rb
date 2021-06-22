@@ -21,9 +21,13 @@ class Assembler
       # Raise not yet implemented !
 
     # Print the output
-    @parser.advance
-    a_symbol = @parser.symbol 
-    sprintf("0%015b", a_symbol)
+    binary_instructions = []
+    while @parser.has_more_commands?
+      @parser.advance
+      a_symbol = @parser.symbol 
+      binary_instructions << (sprintf("0%015b", a_symbol))
+    end
+
+    binary_instructions.join("\n")
   end
 end
-
