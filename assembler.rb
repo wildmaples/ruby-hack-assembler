@@ -32,7 +32,7 @@ class Assembler
       elsif @parser.command_type == :C_COMMAND
         comp, dest, jump = @parser.comp, @parser.dest, @parser.jump
         comp, dest, jump = @code.comp(comp), @code.dest(dest), @code.jump(jump)
-        binary_instructions << "1110#{comp}#{dest}#{jump}"
+        binary_instructions << "111#{comp}#{dest}#{jump}"
       end
     end
 

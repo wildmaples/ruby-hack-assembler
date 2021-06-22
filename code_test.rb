@@ -23,14 +23,14 @@ class CodeTest < Minitest::Test
   end
 
   def test_comp_NOT_M
-    assert_equal("110001", @code.comp("!M"))
+    assert_equal("1110001", @code.comp("!M"))
   end
 
   def test_comp_D_MINUS_1
-    assert_equal("001110", @code.comp("D-1"))
+    assert_equal("0001110", @code.comp("D-1"))
   end
 
   def test_comp_0
-    assert_equal("101010", @code.comp("0"))
+    assert_equal("0101010", @code.comp("0"))
   end
 end
