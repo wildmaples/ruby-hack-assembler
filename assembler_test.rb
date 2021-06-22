@@ -26,6 +26,12 @@ class AssemblerTest < Minitest::Test
     assert_equal("1110110000010000", assembler.assemble)
   end
 
+  def test_assemble_single_C_command_with_jump
+    input_file = StringIO.new("D=A;JNE")
+    assembler = Assembler.new(input_file)
+    assert_equal("1110110000010101", assembler.assemble)
+  end
+
   def test_assemble_single_C_command_with_M
     input_file = StringIO.new("D=D+M")
     assembler = Assembler.new(input_file)
