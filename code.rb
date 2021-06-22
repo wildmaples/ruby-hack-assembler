@@ -51,14 +51,14 @@ class Code
   }
 
   def dest(mnemonic)
-    DEST_CODE[mnemonic]
+    DEST_CODE.fetch(mnemonic)
   end
 
   def jump(mnemonic)
-    JUMP_CODE[mnemonic]
+    JUMP_CODE.fetch(mnemonic)
   end
 
   def comp(mnemonic)
-    COMP_CODE[mnemonic]
+    COMP_CODE.fetch(mnemonic)
   end
 end
