@@ -19,4 +19,10 @@ class AssemblerTest < Minitest::Test
     assembler = Assembler.new(input_file)
     assert_equal("0000000000000010\n0000000000000011", assembler.assemble)
   end
+
+  def test_assemble_single_C_command
+    input_file = StringIO.new("D=A")
+    assembler = Assembler.new(input_file)
+    assert_equal("1110110000010000", assembler.assemble)
+  end
 end
