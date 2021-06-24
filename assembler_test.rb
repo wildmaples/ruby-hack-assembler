@@ -43,4 +43,10 @@ class AssemblerTest < Minitest::Test
     assembler = Assembler.new(input_file)
     assert_equal("0100000000000000", assembler.assemble)
   end
+
+  def test_assemble_predefined_symbols_with_numbers
+    input_file = StringIO.new("@R10")
+    assembler = Assembler.new(input_file)
+    assert_equal("0000000000001010", assembler.assemble)
+  end
 end
