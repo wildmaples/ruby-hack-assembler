@@ -68,4 +68,22 @@ class AssemblerTest < Minitest::Test
     assert_equal("0000000000010000\n0000000000010001\n"\
                  "0000000000010000\n0000000000010001", assembler.assemble)
   end
+
+  def test_assemble_L_command
+    input_file = StringIO.new("(LOOP)\n@LOOP")
+    assembler = Assembler.new(input_file)
+    assert_equal("0000000000000000", assembler.assemble)
+  end
+
+  def test_assemble_L_command_in_a_different_position
+    input_file = StringIO.new("D=D+M\n(LOOP)\n@LOOP")
+    assembler = Assembler.new(input_file)
+    assert_equal("1111000010010000\n0000000000000001", assembler.assemble)
+  end
+
+  def test_assemble_multiple_L_commands
+    input_file = StringIO.new("D=D+M\n(LOOP)\n@LOOP\n(LOOP2)\n@LOOP2")
+    assembler = Assembler.new(input_file)
+    assert_equal("1111000010010000\n0000000000000001\n0000000000000010", assembler.assemble)
+  end
 end

@@ -9,6 +9,7 @@ class Assembler
     @symbol_table = SymbolTable.new
     add_predefined_symbols
     @variable_address = 16
+    @instruction_address = 0
   end
 
   PREDEFINED_SYMBOLS = {
@@ -59,10 +60,14 @@ class Assembler
         end
         
         binary_instructions << (sprintf("0%015b", a_symbol))
+        @instruction_address += 1
       elsif @parser.command_type == :C_COMMAND
         comp, dest, jump = @parser.comp, @parser.dest, @parser.jump
         comp, dest, jump = @code.comp(comp), @code.dest(dest), @code.jump(jump)
         binary_instructions << "111#{comp}#{dest}#{jump}"
+        @instruction_address += 1
+      elsif @parser.command_type == :L_COMMAND
+        @symbol_table.add_entry(@parser.symbol, @instruction_address)
       end
     end
 
