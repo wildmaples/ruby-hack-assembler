@@ -8,6 +8,7 @@ class Assembler
     @code = Code.new
     @symbol_table = SymbolTable.new
     add_predefined_symbols
+    @variable_address = 16
   end
 
   PREDEFINED_SYMBOLS = {
@@ -53,7 +54,8 @@ class Assembler
           if @symbol_table.contains?(a_symbol)
             a_symbol = @symbol_table.get_address(a_symbol)
           else
-            a_symbol = 16
+            a_symbol = @variable_address
+            @variable_address += 1
           end
         end
         
