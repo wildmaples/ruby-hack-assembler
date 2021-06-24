@@ -37,4 +37,10 @@ class AssemblerTest < Minitest::Test
     assembler = Assembler.new(input_file)
     assert_equal("1111000010010000", assembler.assemble)
   end
+
+  def test_assemble_predefined_symbols
+    input_file = StringIO.new("@SCREEN")
+    assembler = Assembler.new(input_file)
+    assert_equal("0100000000000000", assembler.assemble)
+  end
 end
