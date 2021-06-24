@@ -49,4 +49,10 @@ class AssemblerTest < Minitest::Test
     assembler = Assembler.new(input_file)
     assert_equal("0000000000001010", assembler.assemble)
   end
+
+  def test_assemble_a_variable_symbol
+    input_file = StringIO.new("@foo")
+    assembler = Assembler.new(input_file)
+    assert_equal("0000000000010000", assembler.assemble)
+  end
 end

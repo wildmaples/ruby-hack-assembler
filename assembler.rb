@@ -48,9 +48,13 @@ class Assembler
       @parser.advance
       if @parser.command_type == :A_COMMAND
         a_symbol = @parser.symbol 
-        
-        if @symbol_table.contains?(a_symbol)
-          a_symbol = @symbol_table.get_address(a_symbol)
+
+        if a_symbol.to_i.to_s != a_symbol
+          if @symbol_table.contains?(a_symbol)
+            a_symbol = @symbol_table.get_address(a_symbol)
+          else
+            a_symbol = 16
+          end
         end
         
         binary_instructions << (sprintf("0%015b", a_symbol))
