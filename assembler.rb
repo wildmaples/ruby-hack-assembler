@@ -4,7 +4,8 @@ require_relative "symbol_table"
 
 class Assembler
   def initialize(input_file)
-    @parser = Parser.new(input_file)
+    @input_file = input_file
+    @parser = Parser.new(@input_file)
     @code = Code.new
     @symbol_table = SymbolTable.new
     add_predefined_symbols
@@ -45,6 +46,18 @@ class Assembler
   end
 
   def assemble
+    while @parser.has_more_commands? 
+      @parser.advance
+      if @parser.command_type == :L_COMMAND
+        @symbol_table.add_entry(@parser.symbol, @instruction_address)
+      else 
+        @instruction_address += 1
+      end
+    end
+
+    @input_file.rewind
+    @parser = Parser.new(@input_file)
+
     binary_instructions = []
     while @parser.has_more_commands?
       @parser.advance
@@ -60,14 +73,10 @@ class Assembler
         end
         
         binary_instructions << (sprintf("0%015b", a_symbol))
-        @instruction_address += 1
       elsif @parser.command_type == :C_COMMAND
         comp, dest, jump = @parser.comp, @parser.dest, @parser.jump
         comp, dest, jump = @code.comp(comp), @code.dest(dest), @code.jump(jump)
         binary_instructions << "111#{comp}#{dest}#{jump}"
-        @instruction_address += 1
-      elsif @parser.command_type == :L_COMMAND
-        @symbol_table.add_entry(@parser.symbol, @instruction_address)
       end
     end
 
