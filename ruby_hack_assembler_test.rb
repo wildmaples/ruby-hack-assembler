@@ -1,4 +1,4 @@
-require "minitest/autorun"
+require_relative "test_helper"
 
 class RubyHackAssemblerTest < Minitest::Test
   def test_integration_test
