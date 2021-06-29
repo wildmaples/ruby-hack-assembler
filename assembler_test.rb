@@ -1,5 +1,5 @@
 require_relative "test_helper"
-require_relative "assembler"
+require "assembler"
 
 class AssemblerTest < Minitest::Test
   def test_assemble_single_A_command

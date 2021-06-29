@@ -1,5 +1,5 @@
 require_relative "test_helper"
-require_relative "code"
+require "code"
 
 class CodeTest < Minitest::Test
   def setup

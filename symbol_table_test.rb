@@ -1,5 +1,5 @@
 require_relative "test_helper"
-require_relative "symbol_table"
+require "symbol_table"
 
 class SymbolTableTest < Minitest::Test
   def test_add_entry_adds_symbol_and_address
