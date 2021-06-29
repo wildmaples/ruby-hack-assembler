@@ -12,4 +12,4 @@ jobs:
       - name: Install dependencies
         run: gem install minitest
       - name: Run tests
-        run: ruby -e 'ARGV.each { |f| require f }' ./*_test.rb
+        run: ruby -e 'ARGV.each { |f| require f }' ./test/*_test.rb
