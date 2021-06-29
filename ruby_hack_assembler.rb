@@ -2,4 +2,5 @@
 
 require_relative 'assembler'
 
-puts Assembler.new(ARGF).assemble
+input_file = File.open(ARGV[0].to_s)
+puts Assembler.new(input_file).assemble
