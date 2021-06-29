@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# Run `bin/ruby_hack_assembler.rb examples/add.asm`
+# Run `bin/ruby_hack_assembler examples/add.asm`
 
 require_relative '../lib/assembler'
 
