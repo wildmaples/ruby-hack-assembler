@@ -1,4 +1,4 @@
-require_relative "test_helper"
+require "test_helper"
 require "symbol_table"
 
 class SymbolTableTest < Minitest::Test
