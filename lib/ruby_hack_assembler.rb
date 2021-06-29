@@ -1,4 +1,4 @@
-# Run `ruby ruby_hack_assembler.rb examples/add.asm`
+# Run `ruby lib/ruby_hack_assembler.rb examples/add.asm`
 
 require_relative 'assembler'
 
