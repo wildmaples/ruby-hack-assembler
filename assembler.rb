@@ -49,7 +49,8 @@ class Assembler
 
     while @parser.has_more_commands? 
       @parser.advance
-      if @parser.command_type == :L_COMMAND
+      case @parser.command_type
+      when :L_COMMAND
         @symbol_table.add_entry(@parser.symbol, @instruction_address)
       else 
         @instruction_address += 1
@@ -62,7 +63,8 @@ class Assembler
     binary_instructions = []
     while @parser.has_more_commands?
       @parser.advance
-      if @parser.command_type == :A_COMMAND
+      case @parser.command_type
+      when :A_COMMAND
         a_symbol = @parser.symbol 
 
         if a_symbol.to_i.to_s != a_symbol
@@ -74,7 +76,7 @@ class Assembler
         end
         
         binary_instructions << (sprintf("0%015b", a_symbol))
-      elsif @parser.command_type == :C_COMMAND
+      when :C_COMMAND
         comp, dest, jump = @parser.comp, @parser.dest, @parser.jump
         comp, dest, jump = @code.comp(comp), @code.dest(dest), @code.jump(jump)
         binary_instructions << "111#{comp}#{dest}#{jump}"
