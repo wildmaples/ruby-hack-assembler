@@ -5,7 +5,6 @@ require_relative "symbol_table"
 class Assembler
   def initialize(input_file)
     @input_file = input_file
-    @parser = Parser.new(@input_file)
     @code = Code.new
     @symbol_table = SymbolTable.new
     add_predefined_symbols
@@ -46,6 +45,8 @@ class Assembler
   end
 
   def assemble
+    @parser = Parser.new(@input_file)
+
     while @parser.has_more_commands? 
       @parser.advance
       if @parser.command_type == :L_COMMAND
