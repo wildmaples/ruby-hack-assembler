@@ -45,27 +45,27 @@ class Assembler
   end
 
   def assemble
-    @parser = Parser.new(@input_file)
+    parser = Parser.new(@input_file)
 
-    while @parser.has_more_commands? 
-      @parser.advance
-      case @parser.command_type
+    while parser.has_more_commands? 
+      parser.advance
+      case parser.command_type
       when :L_COMMAND
-        @symbol_table.add_entry(@parser.symbol, @instruction_address)
+        @symbol_table.add_entry(parser.symbol, @instruction_address)
       else 
         @instruction_address += 1
       end
     end
 
     @input_file.rewind
-    @parser = Parser.new(@input_file)
+    parser = Parser.new(@input_file)
 
     binary_instructions = []
-    while @parser.has_more_commands?
-      @parser.advance
-      case @parser.command_type
+    while parser.has_more_commands?
+      parser.advance
+      case parser.command_type
       when :A_COMMAND
-        a_symbol = @parser.symbol 
+        a_symbol = parser.symbol 
 
         if a_symbol.to_i.to_s != a_symbol
           unless @symbol_table.contains?(a_symbol)
@@ -77,7 +77,7 @@ class Assembler
         
         binary_instructions << (sprintf("0%015b", a_symbol))
       when :C_COMMAND
-        comp, dest, jump = @parser.comp, @parser.dest, @parser.jump
+        comp, dest, jump = parser.comp, parser.dest, parser.jump
         comp, dest, jump = @code.comp(comp), @code.dest(dest), @code.jump(jump)
         binary_instructions << "111#{comp}#{dest}#{jump}"
       end
