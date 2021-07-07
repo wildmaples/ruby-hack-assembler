@@ -2,7 +2,6 @@ require "minitest/autorun"
 
 class RubyHackAssemblerTest < Minitest::Test
   def test_integration_test
-    skip("Assembly with symbols hasn't been implemented!")
     assembly_code = `ruby ruby_hack_assembler.rb examples/Rect.asm`
     expected = <<~EOF
       0000000000000000

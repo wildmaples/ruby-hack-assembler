@@ -37,4 +37,71 @@ class AssemblerTest < Minitest::Test
     assembler = Assembler.new(input_file)
     assert_equal("1111000010010000", assembler.assemble)
   end
+
+  def test_assemble_predefined_symbols
+    input_file = StringIO.new("@SCREEN")
+    assembler = Assembler.new(input_file)
+    assert_equal("0100000000000000", assembler.assemble)
+  end
+
+  def test_assemble_predefined_symbols_with_numbers
+    input_file = StringIO.new("@R10")
+    assembler = Assembler.new(input_file)
+    assert_equal("0000000000001010", assembler.assemble)
+  end
+
+  def test_assemble_a_variable_symbol
+    input_file = StringIO.new("@foo")
+    assembler = Assembler.new(input_file)
+    assert_equal("0000000000010000", assembler.assemble)
+  end
+
+  def test_assemble_two_variable_symbols
+    input_file = StringIO.new("@foo\n@bar")
+    assembler = Assembler.new(input_file)
+    assert_equal("0000000000010000\n0000000000010001", assembler.assemble)
+  end
+
+  def test_assemble_repeated_variable_symbols
+    input_file = StringIO.new("@foo\n@bar\n@foo\n@bar")
+    assembler = Assembler.new(input_file)
+    assert_equal("0000000000010000\n0000000000010001\n"\
+                 "0000000000010000\n0000000000010001", assembler.assemble)
+  end
+
+  def test_assemble_L_command
+    input_file = StringIO.new("(LOOP)\n@LOOP")
+    assembler = Assembler.new(input_file)
+    assert_equal("0000000000000000", assembler.assemble)
+  end
+
+  def test_assemble_L_command_in_a_different_position
+    input_file = StringIO.new("D=D+M\n(LOOP)\n@LOOP")
+    assembler = Assembler.new(input_file)
+    assert_equal("1111000010010000\n0000000000000001", assembler.assemble)
+  end
+
+  def test_assemble_multiple_L_commands
+    input_file = StringIO.new("D=D+M\n(LOOP)\n@LOOP\n(LOOP2)\n@LOOP2")
+    assembler = Assembler.new(input_file)
+    assert_equal("1111000010010000\n0000000000000001\n0000000000000010", assembler.assemble)
+  end
+
+  def test_assemble_L_command_after_label
+    input_file = StringIO.new("@LOOP\n(LOOP)")
+    assembler = Assembler.new(input_file)
+    assert_equal("0000000000000001", assembler.assemble)
+  end
+
+  def test_assemble_L_command_in_a_different_position_after_label
+    input_file = StringIO.new("D=D+M\n@LOOP\n(LOOP)")
+    assembler = Assembler.new(input_file)
+    assert_equal("1111000010010000\n0000000000000010", assembler.assemble)
+  end
+
+  def test_assemble_multiple_L_commands_after_label
+    input_file = StringIO.new("D=D+M\n@LOOP\n(LOOP)\n@LOOP2\n(LOOP2)")
+    assembler = Assembler.new(input_file)
+    assert_equal("1111000010010000\n0000000000000010\n0000000000000011", assembler.assemble)
+  end
 end
