@@ -1,5 +1,5 @@
-require "minitest/autorun"
-require_relative "assembler"
+require "test_helper"
+require "assembler"
 
 class AssemblerTest < Minitest::Test
   def test_assemble_single_A_command

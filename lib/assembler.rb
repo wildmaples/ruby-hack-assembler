@@ -47,12 +47,12 @@ class Assembler
   def assemble
     parser = Parser.new(@input_file)
 
-    while parser.has_more_commands? 
+    while parser.has_more_commands?
       parser.advance
       case parser.command_type
       when :L_COMMAND
         @symbol_table.add_entry(parser.symbol, @instruction_address)
-      else 
+      else
         @instruction_address += 1
       end
     end
@@ -65,7 +65,7 @@ class Assembler
       parser.advance
       case parser.command_type
       when :A_COMMAND
-        a_symbol = parser.symbol 
+        a_symbol = parser.symbol
 
         if a_symbol.to_i.to_s != a_symbol
           unless @symbol_table.contains?(a_symbol)
@@ -74,7 +74,7 @@ class Assembler
           end
           a_symbol = @symbol_table.get_address(a_symbol)
         end
-        
+
         binary_instructions << (sprintf("0%015b", a_symbol))
       when :C_COMMAND
         comp, dest, jump = parser.comp, parser.dest, parser.jump

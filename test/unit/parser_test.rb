@@ -1,5 +1,5 @@
-require "minitest/autorun"
-require_relative "parser"
+require "test_helper"
+require "parser"
 
 class ParserTest < Minitest::Test
   def test_that_has_more_commands_returns_false_when_no_commands

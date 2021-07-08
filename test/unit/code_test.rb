@@ -1,5 +1,5 @@
-require "minitest/autorun"
-require_relative "code"
+require "test_helper"
+require "code"
 
 class CodeTest < Minitest::Test
   def setup

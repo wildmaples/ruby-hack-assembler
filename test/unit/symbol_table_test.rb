@@ -1,5 +1,5 @@
-require "minitest/autorun"
-require_relative "symbol_table"
+require "test_helper"
+require "symbol_table"
 
 class SymbolTableTest < Minitest::Test
   def test_add_entry_adds_symbol_and_address

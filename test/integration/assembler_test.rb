@@ -1,8 +1,8 @@
-require "minitest/autorun"
+require "test_helper"
 
-class RubyHackAssemblerTest < Minitest::Test
+class AssemblerIntegrationTest < Minitest::Test
   def test_integration_test
-    assembly_code = `ruby ruby_hack_assembler.rb examples/Rect.asm`
+    assembly_code = `bin/assembler examples/Rect.asm`
     expected = <<~EOF
       0000000000000000
       1111110000010000
@@ -35,7 +35,7 @@ class RubyHackAssemblerTest < Minitest::Test
   end
 
   def test_integration_test_symboless
-    assembly_code = `ruby ruby_hack_assembler.rb examples/Add.asm`
+    assembly_code = `bin/assembler examples/Add.asm`
     expected = <<~EOF
       0000000000000010
       1110110000010000
